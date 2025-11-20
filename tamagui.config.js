@@ -1,30 +1,77 @@
-import { createTamagui } from 'tamagui';
+import { createTamagui, createFont, createTokens } from 'tamagui';
+
+const headingFont = createFont({
+  family: 'Arial, sans-serif',
+});
+
+const bodyFont = createFont({
+  family: 'Arial, sans-serif',
+});
+
+const tokens = createTokens({
+  font: {
+    heading: headingFont,
+    body: bodyFont,
+  },
+  color: {
+    white: '#fff',
+    black: '#000',
+    blue: '#0070f3',
+    blueDark: '#0051cc',
+    gray: '#888',
+    grayDark: '#333',
+  },
+  size: {
+    xs: 2,
+    sm: 4,
+    md: 8,
+    lg: 16,
+    xl: 24,
+    xxl: 32,
+  },
+  space: {
+    xs: 2,
+    sm: 4,
+    md: 8,
+    lg: 16,
+    xl: 24,
+    xxl: 32,
+  },
+  radius: {
+    xs: 2,
+    sm: 4,
+    md: 8,
+    lg: 16,
+    xl: 24,
+    xxl: 32,
+  },
+  zIndex: {
+    0: 0,
+    1: 100,
+    2: 200,
+    3: 300,
+    4: 400,
+    5: 500,
+  },
+});
 
 const tamaguiConfig = createTamagui({
-  defaultTheme: {
+  tokens,
+  themes: {
     light: {
-      background: '#ffffff',
-      backgroundContrast: '#000000',
-      color: '#000000',
-      colorContrast: '#ffffff',
+      bg: tokens.color.white,
+      color: tokens.color.black,
+      borderColor: tokens.color.gray,
     },
     dark: {
-      background: '#000000',
-      backgroundContrast: '#ffffff',
-      color: '#ffffff',
-      colorContrast: '#000000',
+      bg: tokens.color.black,
+      color: tokens.color.white,
+      borderColor: tokens.color.grayDark,
     },
   },
-  tokens: {
-    color: {},
-    size: {},
-    space: {},
-    radius: {},
-    zIndex: {},
-  },
-  themes: {
-    light: {},
-    dark: {},
+  fonts: {
+    heading: headingFont,
+    body: bodyFont,
   },
   media: {
     sm: { maxWidth: 660 },
@@ -38,7 +85,11 @@ const tamaguiConfig = createTamagui({
     gtXl: { minWidth: 1320 + 1 },
     gtXxl: { minWidth: 1580 + 1 },
   },
-  shorthands: {},
+  shorthands: {
+    center: { alignItems: 'center', justifyContent: 'center' },
+    f: { flex: 1 },
+    fac: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  },
 });
 
 export default tamaguiConfig;
