@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, Input, Button, YStack, XStack, Slider, Paragraph } from 'tamagui';
 
 export interface LoanCalculatorProps {
   onCalculate?: (monthlyPayment: number, totalPayment: number, totalInterest: number) => void;
 }
 
-export const LoanCalculator: React.FC<LoanCalculatorProps> = ({ onCalculate }) => {
+export const LoanCalculator = ({ onCalculate }: LoanCalculatorProps) => {
   const [principal, setPrincipal] = useState('');
   const [interestRate, setInterestRate] = useState(5);
   const [loanTerm, setLoanTerm] = useState(30);
@@ -152,8 +152,7 @@ export const LoanCalculator: React.FC<LoanCalculatorProps> = ({ onCalculate }) =
 };
 
 
-import React from 'react';
-import { YStack, Button } from 'tamagui';
+import { YStack, Button, Text } from 'tamagui';
 
 export const sampleRender = () => {
   const handleCalculation = (monthlyPayment: number, totalPayment: number, totalInterest: number) => {
