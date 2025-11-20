@@ -1,14 +1,11 @@
 import { withTamagui } from '@tamagui/next-plugin';
 
-const tamaguiOptions = {
+export default withTamagui({
   config: './tamagui.config.ts',
   components: ['tamagui'],
   appDir: true,
   outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
   disableExtraction: process.env.NODE_ENV === 'development',
-};
-
-const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -19,6 +16,4 @@ const nextConfig = {
     '@tamagui/config',
   ],
   assetPrefix: process.env.BASE_PATH || '',
-};
-
-export default withTamagui(tamaguiOptions, nextConfig);
+});

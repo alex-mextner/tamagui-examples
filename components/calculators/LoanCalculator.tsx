@@ -150,3 +150,26 @@ export const LoanCalculator: React.FC<LoanCalculatorProps> = ({ onCalculate }) =
     </YStack>
   );
 };
+
+
+import React from 'react';
+import { YStack, Button } from 'tamagui';
+
+export const sampleRender = () => {
+  const handleCalculation = (monthlyPayment: number, totalPayment: number, totalInterest: number) => {
+    console.log('Calculation results:', { monthlyPayment, totalPayment, totalInterest });
+    alert('Loan calculated! Check the console for results.');
+  };
+
+  return (
+    <YStack justifyContent="center" alignItems="center" height="100vh" padding="$4" gap="$4">
+      <LoanCalculator onCalculate={handleCalculation} />
+      <YStack gap="$2" maxWidth={400} width="100%">
+        <Text textAlign="center">Try these scenarios:</Text>
+        <Button variant="outlined" onPress={() => alert('This is a sample render. The sliders are interactive.')}>
+          See Interactive Sliders
+        </Button>
+      </YStack>
+    </YStack>
+  );
+};
