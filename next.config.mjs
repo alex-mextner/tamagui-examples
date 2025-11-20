@@ -1,19 +1,11 @@
-import { withTamagui } from '@tamagui/next-plugin';
+import originalConfig from './next.config.mjs.original';
 
-export default withTamagui({
-  config: './tamagui.config.ts',
-  components: ['tamagui'],
-  appDir: true,
-  outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
-  disableExtraction: process.env.NODE_ENV === 'development',
-}, {
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  transpilePackages: [
-    'react-native',
-    'react-native-web',
-    'tamagui',
-    '@tamagui/config',
-  ],
-});
+export default (...args) => {
+  const config = typeof originalConfig === 'function' ? originalConfig(...args) : originalConfig;
+
+  // Inject assetPrefix from environment (for _next/static assets only)
+  return {
+    ...config,
+    assetPrefix: process.env.BASE_PATH || '',
+  };
+};
