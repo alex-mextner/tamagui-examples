@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, Input, Button, YStack, XStack, Paragraph } from 'tamagui';
 
 export interface BMICalculatorProps {
@@ -6,7 +6,7 @@ export interface BMICalculatorProps {
   units?: 'metric' | 'imperial';
 }
 
-export const BMICalculator: React.FC<BMICalculatorProps> = ({
+export const BMICalculator = ({
   onBMICalculate,
   units = 'metric'
 }) => {
@@ -137,5 +137,31 @@ export const BMICalculator: React.FC<BMICalculatorProps> = ({
         </YStack>
       )}
     </YStack>
+  );
+};
+
+
+import { useState } from 'react';
+
+export const sampleRender = () => {
+  const [lastBMI, setLastBMI] = useState<{ bmi: number; category: string } | null>(null);
+
+  return (
+    <>
+      <BMICalculator
+        units="imperial"
+        onBMICalculate={(bmi, category) => {
+          console.log(`Calculated BMI: ${bmi}, Category: ${category}`);
+          setLastBMI({ bmi, category });
+        }}
+      />
+      {lastBMI && (
+        <YStack padding="$4" marginTop="$4" backgroundColor="$background" borderRadius="$4" maxWidth={350} width="100%">
+          <Text textAlign="center" color="$gray10">
+            Last calculation: <Text fontWeight="bold">{lastBMI.bmi} ({lastBMI.category})</Text>
+          </Text>
+        </YStack>
+      )}
+    </>
   );
 };
