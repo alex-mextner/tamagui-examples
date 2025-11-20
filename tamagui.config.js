@@ -1,4 +1,4 @@
-import { createTamagui, createFont, createTokens } from 'tamagui';
+const { createTamagui, createFont, createTokens } = require('tamagui');
 
 const headingFont = createFont({
   family: 'Arial, sans-serif',
@@ -94,10 +94,4 @@ const tamaguiConfig = createTamagui({
   disableInjectCSS: true,
 });
 
-export default tamaguiConfig;
-
-export type Conf = typeof tamaguiConfig;
-
-declare module 'tamagui' {
-  interface TamaguiCustomConfig extends Conf {}
-}
+module.exports = tamaguiConfig;
