@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, Input, Button, XStack, YStack } from 'tamagui';
 
 export interface SimpleCalculatorProps {
@@ -6,7 +6,7 @@ export interface SimpleCalculatorProps {
   onResult?: (result: number) => void;
 }
 
-export const SimpleCalculator: React.FC<SimpleCalculatorProps> = ({
+export const SimpleCalculator = ({
   initialDisplay = '0',
   onResult,
 }) => {
