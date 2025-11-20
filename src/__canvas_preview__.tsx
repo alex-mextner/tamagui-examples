@@ -1,6 +1,7 @@
 import { sampleRender as BMICalculatorSampleRender } from './components/calculators/BMICalculator';
 import { sampleRender as LoanCalculatorSampleRender } from "./../components/calculators/LoanCalculator";
 import { sampleRender as TipCalculatorSampleRender } from './components/calculators/TipCalculator';
+import { sampleRender as BMICalculatorSampleRender } from "./../components/calculators/BMICalculator";
 const sampleRenderMap: Record<string, () => React.ReactNode> = {
   "components/calculators/LoanCalculator.tsx": LoanCalculatorSampleRender,
   'components/calculators/BMICalculator.tsx': BMICalculatorSampleRender,

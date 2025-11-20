@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Input, Button, YStack, XStack, Slider, Paragraph } from 'tamagui';
+import { Text, Input, Button, YStack, XStack, Slider, Paragraph } from 'tamagui';
 
 export interface LoanCalculatorProps {
   onCalculate?: (monthlyPayment: number, totalPayment: number, totalInterest: number) => void;

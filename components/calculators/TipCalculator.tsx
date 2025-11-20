@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Input, Button, YStack, XStack, Slider, Paragraph } from 'tamagui';
+import { Text, Input, Button, YStack, XStack, Slider, Paragraph } from 'tamagui';
 
 export interface TipCalculatorProps {
   onCalculate?: (tip: number, total: number) => void;

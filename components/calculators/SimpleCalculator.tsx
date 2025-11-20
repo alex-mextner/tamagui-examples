@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Input, Button, XStack, YStack } from 'tamagui';
+import { Text, Input, Button, XStack, YStack } from 'tamagui';
 
 export interface SimpleCalculatorProps {
   initialDisplay?: string;
