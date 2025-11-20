@@ -152,8 +152,6 @@ export const LoanCalculator = ({ onCalculate }: LoanCalculatorProps) => {
 };
 
 
-import { YStack, Button, Text } from 'tamagui';
-
 export const sampleRender = () => {
   const handleCalculation = (monthlyPayment: number, totalPayment: number, totalInterest: number) => {
     console.log('Calculation results:', { monthlyPayment, totalPayment, totalInterest });
