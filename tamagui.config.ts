@@ -90,6 +90,8 @@ const tamaguiConfig = createTamagui({
     f: { flex: 1 },
     fac: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   },
+  // Добавляем поддержку SSR
+  disableInjectCSS: true,
 });
 
 export default tamaguiConfig;

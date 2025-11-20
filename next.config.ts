@@ -7,6 +7,10 @@ const tamaguiOptions = {
   outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
   disableExtraction: process.env.NODE_ENV === 'development',
   useReactNativeWeb: true,
+  // Добавляем настройки для лучшей SSR совместимости
+  shouldExtract: (path) => {
+    return path.includes('components/') || path.includes('app/');
+  },
 };
 
 const nextConfig = {
