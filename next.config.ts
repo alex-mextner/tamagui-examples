@@ -1,7 +1,7 @@
 import { withTamagui } from '@tamagui/next-plugin';
 
 const tamaguiOptions = {
-  config: './tamagui.config.ts',
+  config: './tamagui.config.js',
   components: ['tamagui'],
   appDir: true,
   outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
