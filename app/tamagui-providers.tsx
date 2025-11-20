@@ -2,7 +2,7 @@
 
 import { NextThemeProvider } from '@tamagui/next-theme';
 import { TamaguiProvider } from 'tamagui';
-import config from '../../tamagui.config';
+import config from '../tamagui.config.js';
 import { useEffect, useState } from 'react';
 
 export function TamaguiProviders({
