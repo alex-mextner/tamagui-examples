@@ -4,8 +4,12 @@ import React from 'react';
 
 // Sample render map - functions that return JSX
 import { sampleRender as LoanCalculatorSampleRender } from "./../components/calculators/LoanCalculator";
+import { sampleRender as TipCalculatorSampleRender } from "./../components/calculators/TipCalculator";
+import { sampleRender as BMICalculatorSampleRender } from "./../components/calculators/BMICalculator";
 const sampleRenderMap: Record<string, () => React.ReactNode> = {
-  "components/calculators/LoanCalculator.tsx": LoanCalculatorSampleRender
+  "components/calculators/LoanCalculator.tsx": LoanCalculatorSampleRender,
+  "components/calculators/TipCalculator.tsx": TipCalculatorSampleRender,
+  "components/calculators/BMICalculator.tsx": BMICalculatorSampleRender
 } // Entries will be added automatically
 ;
 interface CanvasPreviewProps {
