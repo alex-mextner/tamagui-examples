@@ -6,6 +6,7 @@ const tamaguiOptions = {
   appDir: true,
   outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
   disableExtraction: process.env.NODE_ENV === 'development',
+  useReactNativeWeb: true,
 };
 
 const nextConfig = {

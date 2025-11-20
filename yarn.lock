@@ -1060,7 +1060,7 @@
     "@tamagui/shorthands" "1.138.0"
     "@tamagui/web" "1.138.0"
 
-"@tamagui/config@^1.136.9":
+"@tamagui/config@1.138.0":
   version "1.138.0"
   resolved "https://registry.yarnpkg.com/@tamagui/config/-/config-1.138.0.tgz#813215d0d57c3bc328d6718a4786a510d1c3bb9a"
   integrity sha512-YgywYL9Fs/MnynA1W+9aqyYYR3rJ+mB9r44jXy4SfSlNBbvKkIFQjJeBfjgc9f2p7f7AMe3V/sxi0gb0frkxrg==
@@ -1339,7 +1339,7 @@
     "@tamagui/text" "1.138.0"
     "@tamagui/web" "1.138.0"
 
-"@tamagui/next-plugin@^1.136.9":
+"@tamagui/next-plugin@1.138.0":
   version "1.138.0"
   resolved "https://registry.yarnpkg.com/@tamagui/next-plugin/-/next-plugin-1.138.0.tgz#cd6b3ec52c86b5031b0645e597f04178a1a96c06"
   integrity sha512-y6IGphfk6lzvqNUrHPLKvN7OlCDVIzQeivRs5yH86iS9QybQwMtXg7RgOP/Omj8erpLlPnexveoZDr5j9lu8Pw==
@@ -1357,7 +1357,7 @@
     tamagui-loader "1.138.0"
     url-loader "^4.1.1"
 
-"@tamagui/next-theme@^1.136.9":
+"@tamagui/next-theme@1.138.0":
   version "1.138.0"
   resolved "https://registry.yarnpkg.com/@tamagui/next-theme/-/next-theme-1.138.0.tgz#4daac871d364bda96a2f98645e29ccb5e091ff93"
   integrity sha512-Q4i8NL/4q6DFc4hL1cvFWD8qe5CebdVrkOF6ZPmCyuLI5i99b6Z8lEb/IJu1CBCxA16+tdUFCwZpkxExCWNFFQ==
@@ -3394,7 +3394,7 @@ tamagui-loader@1.138.0:
     fs-extra "^11.2.0"
     loader-utils "^3.2.1"
 
-tamagui@^1.136.9:
+tamagui@1.138.0:
   version "1.138.0"
   resolved "https://registry.yarnpkg.com/tamagui/-/tamagui-1.138.0.tgz#fcbf685975040160b57d68c3f4c19629a7d0368f"
   integrity sha512-YGhLFgxjs+GDBcfwUbG8vqecqKkigv0H+6FywbNy7RcltxGiCVs0/OlmSfWgt8e22fsVuBK3Uk8c/JJaL1mfCA==
