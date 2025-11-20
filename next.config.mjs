@@ -1,4 +1,4 @@
-import originalConfig from './next.config.mjs.original';
+import originalConfig from './next.config.original.mjs';
 
 export default (...args) => {
   const config = typeof originalConfig === 'function' ? originalConfig(...args) : originalConfig;
