@@ -141,8 +141,6 @@ export const BMICalculator = ({
 };
 
 
-import { useState } from 'react';
-
 export const sampleRender = () => {
   const [lastBMI, setLastBMI] = useState<{ bmi: number; category: string } | null>(null);
 
