@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { NextThemeProvider } from '@tamagui/next-theme';
-import { TamaguiProvider } from 'tamagui';
-import config from '../tamagui.config';
+import { TamaguiProviders } from './tamagui-providers';
 
 export const metadata: Metadata = {
   title: 'My App',
@@ -16,11 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <NextThemeProvider>
-          <TamaguiProvider config={config} defaultTheme="light">
-            {children}
-          </TamaguiProvider>
-        </NextThemeProvider>
+        <TamaguiProviders>{children}</TamaguiProviders>
       </body>
     </html>
   );
