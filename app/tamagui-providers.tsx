@@ -1,9 +1,9 @@
 'use client';
 
-import { NextThemeProvider } from '@tamagui/next-theme';
-import { TamaguiProvider } from 'tamagui';
-import config from '../tamagui.config.ts';
 import { useEffect, useState } from 'react';
+import { NextThemeProvider } from '@tamagui/next-theme';
+import { TamaguiProvider } from '@tamagui/web';
+import config from '../tamagui.config.ts';
 
 export function TamaguiProviders({
   children,

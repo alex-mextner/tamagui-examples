@@ -1,7 +1,9 @@
 'use client';
 
-import { YStack, H1, Button } from 'tamagui';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Button } from '@tamagui/button';
+import { YStack } from '@tamagui/stacks';
+import { H1 } from '@tamagui/text';
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
