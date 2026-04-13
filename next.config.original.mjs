@@ -21,6 +21,7 @@ const nextConfig = {
     'react-native-web',
     'tamagui',
     '@tamagui/config',
+    '@tamagui/next-theme',
   ],
   assetPrefix: process.env.BASE_PATH || '',
 };
