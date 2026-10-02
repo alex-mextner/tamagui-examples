@@ -1,15 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { NextThemeProvider } from '@tamagui/next-theme';
 import { TamaguiProvider } from '@tamagui/web';
+import { useEffect, useState } from 'react';
 import config from '../tamagui.config.ts';
 
-export function TamaguiProviders({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function TamaguiProviders({ children }: { children: React.ReactNode }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

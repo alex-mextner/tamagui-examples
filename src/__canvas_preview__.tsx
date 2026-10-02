@@ -1,16 +1,17 @@
-import { sampleRender as BMICalculatorSampleRender } from './components/calculators/BMICalculator';
-import { sampleRender as LoanCalculatorSampleRender } from "./../components/calculators/LoanCalculator";
-import { sampleRender as TipCalculatorSampleRender } from './components/calculators/TipCalculator';
-import { sampleRender as BMICalculatorSampleRender } from "./../components/calculators/BMICalculator";
-const sampleRenderMap: Record<string, () => React.ReactNode> = {
-  "components/calculators/LoanCalculator.tsx": LoanCalculatorSampleRender,
+import { SampleDefault as BMICalculatorSampleRender } from './../components/calculators/BMICalculator';
+import { SampleDefault as LoanCalculatorSampleRender } from './../components/calculators/LoanCalculator';
+import { SampleDefault as BMICalculatorSampleRender } from './components/calculators/BMICalculator';
+import { SampleDefault as TipCalculatorSampleRender } from './components/calculators/TipCalculator';
+
+const SampleDefaultMap: Record<string, React.FC> = {
+  'components/calculators/LoanCalculator.tsx': LoanCalculatorSampleRender,
   'components/calculators/BMICalculator.tsx': BMICalculatorSampleRender,
-  'components/calculators/TipCalculator.tsx': TipCalculatorSampleRender
+  'components/calculators/TipCalculator.tsx': TipCalculatorSampleRender,
 };
 const CanvasPreview = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const componentName = urlParams.get('component');
-  const renderComponent = sampleRenderMap[componentName || ''];
+  const renderComponent = SampleDefaultMap[componentName || ''];
   if (!renderComponent) {
     return <div>Component not found</div>;
   }

@@ -1,4 +1,4 @@
-const originalConfig = require('./next.config.js.original');
+const originalConfig = require('./next.config.original.mjs');
 
 module.exports = (...args) => {
   const config = typeof originalConfig === 'function' ? originalConfig(...args) : originalConfig;

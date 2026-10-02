@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Input, Button, YStack, XStack, Paragraph } from 'tamagui';
+import type React from 'react';
+import { useEffect, useState } from 'react';
+import { Button, Input, Paragraph, Text, View, XStack, YStack } from 'tamagui';
 
 export interface CurrencyConverterProps {
   onConvert?: (from: string, to: string, value: number, result: number) => void;
@@ -11,7 +12,7 @@ const defaultRates: Record<string, number> = {
   USD: 1,
   EUR: 0.92,
   GBP: 0.79,
-  JPY: 149.50,
+  JPY: 149.5,
   CAD: 1.36,
   AUD: 1.52,
   CHF: 0.88,
@@ -19,13 +20,10 @@ const defaultRates: Record<string, number> = {
   INR: 83.12,
   MXN: 17.15,
   BRL: 4.97,
-  RUB: 90.50,
+  RUB: 90.5,
 };
 
-export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ 
-  onConvert,
-  exchangeRates = defaultRates 
-}) => {
+export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ onConvert, exchangeRates = defaultRates }) => {
   const currencies = [
     { code: 'USD', name: 'US Dollar', symbol: '$' },
     { code: 'EUR', name: 'Euro', symbol: '€' },
@@ -53,11 +51,11 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
 
     const fromRate = exchangeRates[fromCurrency] || 1;
     const toRate = exchangeRates[toCurrency] || 1;
-    
+
     // Convert to USD first, then to target currency
     const inUSD = value / fromRate;
     const converted = inUSD * toRate;
-    
+
     setResult(converted);
     onConvert?.(fromCurrency, toCurrency, value, converted);
   };
@@ -81,7 +79,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
   };
 
   const formatCurrency = (amount: number, currencyCode: string) => {
-    const currency = currencies.find(c => c.code === currencyCode);
+    const currency = currencies.find((c) => c.code === currencyCode);
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: currencyCode,
@@ -135,12 +133,14 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
               <Button
                 key={currency.code}
                 size="$3"
-                variant={fromCurrency === currency.code ? "outlined" : "ghost"}
+                variant={fromCurrency === currency.code ? 'outlined' : 'ghost'}
                 justifyContent="flex-start"
                 onPress={() => setFromCurrency(currency.code)}
               >
                 <XStack flex={1} justifyContent="space-between">
-                  <Text>{currency.code} - {currency.name}</Text>
+                  <Text>
+                    {currency.code} - {currency.name}
+                  </Text>
                   <Text>{currency.symbol}</Text>
                 </XStack>
               </Button>
@@ -149,12 +149,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
         </YStack>
 
         <YStack alignItems="center">
-          <Button
-            size="$3"
-            variant="ghost"
-            onPress={swapCurrencies}
-            icon={() => <Text>⇅</Text>}
-          >
+          <Button size="$3" variant="ghost" onPress={swapCurrencies} icon={() => <Text>⇅</Text>}>
             Swap
           </Button>
         </YStack>
@@ -168,12 +163,14 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
               <Button
                 key={currency.code}
                 size="$3"
-                variant={toCurrency === currency.code ? "outlined" : "ghost"}
+                variant={toCurrency === currency.code ? 'outlined' : 'ghost'}
                 justifyContent="flex-start"
                 onPress={() => setToCurrency(currency.code)}
               >
                 <XStack flex={1} justifyContent="space-between">
-                  <Text>{currency.code} - {currency.name}</Text>
+                  <Text>
+                    {currency.code} - {currency.name}
+                  </Text>
                   <Text>{currency.symbol}</Text>
                 </XStack>
               </Button>
@@ -187,25 +184,26 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
       </Button>
 
       {result !== null && parseFloat(inputValue) > 0 && (
-        <YStack
-          padding="$3"
-          backgroundColor="$gray1"
-          borderRadius="$3"
-          gap="$3"
-        >
+        <YStack padding="$3" backgroundColor="$gray1" borderRadius="$3" gap="$3">
           <XStack justifyContent="space-between">
-            <Text fontSize="$4" fontWeight="bold">Result:</Text>
+            <Text fontSize="$4" fontWeight="bold">
+              Result:
+            </Text>
             <Text fontSize="$4" fontWeight="bold" color="$green10">
               {formatCurrency(result, toCurrency)}
             </Text>
           </XStack>
           <XStack justifyContent="space-between">
             <Text fontSize="$3">Exchange Rate:</Text>
-            <Text fontSize="$3">1 {fromCurrency} = {getExchangeRate()} {toCurrency}</Text>
+            <Text fontSize="$3">
+              1 {fromCurrency} = {getExchangeRate()} {toCurrency}
+            </Text>
           </XStack>
           <XStack justifyContent="space-between">
             <Text fontSize="$3">Inverse Rate:</Text>
-            <Text fontSize="$3">1 {toCurrency} = {(1 / parseFloat(getExchangeRate())).toFixed(4)} {fromCurrency}</Text>
+            <Text fontSize="$3">
+              1 {toCurrency} = {(1 / parseFloat(getExchangeRate())).toFixed(4)} {fromCurrency}
+            </Text>
           </XStack>
           <Paragraph size="$1" color="$gray10" textAlign="center">
             Rates updated: {lastUpdated.toLocaleDateString()} • Rates are for demonstration only

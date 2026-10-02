@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Input, Button, YStack, XStack, Paragraph } from 'tamagui';
+import type React from 'react';
+import { useEffect, useState } from 'react';
+import { Button, Input, Paragraph, Text, View, XStack, YStack } from 'tamagui';
 
 export interface LengthConverterProps {
   onConvert?: (from: string, to: string, value: number, result: number) => void;
@@ -26,13 +27,13 @@ export const LengthConverter: React.FC<LengthConverterProps> = ({ onConvert }) =
     const value = parseFloat(inputValue);
     if (!value) return;
 
-    const fromFactor = lengthUnits.find(u => u.value === fromUnit)?.factor || 1;
-    const toFactor = lengthUnits.find(u => u.value === toUnit)?.factor || 1;
-    
+    const fromFactor = lengthUnits.find((u) => u.value === fromUnit)?.factor || 1;
+    const toFactor = lengthUnits.find((u) => u.value === toUnit)?.factor || 1;
+
     // Convert to meters first, then to target unit
     const inMeters = value / fromFactor;
     const converted = inMeters * toFactor;
-    
+
     setResult(converted);
     onConvert?.(fromUnit, toUnit, value, converted);
   };
@@ -87,7 +88,7 @@ export const LengthConverter: React.FC<LengthConverterProps> = ({ onConvert }) =
               <Button
                 key={unit.value}
                 size="$2"
-                variant={fromUnit === unit.value ? "outlined" : "ghost"}
+                variant={fromUnit === unit.value ? 'outlined' : 'ghost'}
                 onPress={() => setFromUnit(unit.value)}
               >
                 {unit.label}
@@ -97,12 +98,7 @@ export const LengthConverter: React.FC<LengthConverterProps> = ({ onConvert }) =
         </YStack>
 
         <YStack alignItems="center">
-          <Button
-            size="$3"
-            variant="ghost"
-            onPress={swapUnits}
-            icon={() => <Text>⇅</Text>}
-          >
+          <Button size="$3" variant="ghost" onPress={swapUnits} icon={() => <Text>⇅</Text>}>
             Swap
           </Button>
         </YStack>
@@ -111,13 +107,7 @@ export const LengthConverter: React.FC<LengthConverterProps> = ({ onConvert }) =
           <Text marginBottom="$2" fontWeight="500">
             To
           </Text>
-          <YStack
-            minHeight={50}
-            padding="$3"
-            backgroundColor="$gray1"
-            borderRadius="$2"
-            justifyContent="center"
-          >
+          <YStack minHeight={50} padding="$3" backgroundColor="$gray1" borderRadius="$2" justifyContent="center">
             <Text fontSize="$4" fontWeight="bold">
               {result !== null ? result.toFixed(6) : '0'}
             </Text>
@@ -127,7 +117,7 @@ export const LengthConverter: React.FC<LengthConverterProps> = ({ onConvert }) =
               <Button
                 key={unit.value}
                 size="$2"
-                variant={toUnit === unit.value ? "outlined" : "ghost"}
+                variant={toUnit === unit.value ? 'outlined' : 'ghost'}
                 onPress={() => setToUnit(unit.value)}
               >
                 {unit.label}

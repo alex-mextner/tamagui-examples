@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Input, Button, YStack, XStack, Paragraph } from 'tamagui';
+import type React from 'react';
+import { useEffect, useState } from 'react';
+import { Button, Input, Paragraph, Text, View, XStack, YStack } from 'tamagui';
 
 export interface TemperatureConverterProps {
   onConvert?: (from: string, to: string, value: number, result: number) => void;
@@ -16,11 +17,11 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
       case 'celsius':
         return value;
       case 'fahrenheit':
-        return (value - 32) * 5/9;
+        return ((value - 32) * 5) / 9;
       case 'kelvin':
         return value - 273.15;
       case 'rankine':
-        return (value - 491.67) * 5/9;
+        return ((value - 491.67) * 5) / 9;
       default:
         return value;
     }
@@ -31,11 +32,11 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
       case 'celsius':
         return value;
       case 'fahrenheit':
-        return (value * 9/5) + 32;
+        return (value * 9) / 5 + 32;
       case 'kelvin':
         return value + 273.15;
       case 'rankine':
-        return (value + 273.15) * 9/5;
+        return ((value + 273.15) * 9) / 5;
       default:
         return value;
     }
@@ -47,7 +48,7 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
 
     const inCelsius = toCelsius(value, fromUnit);
     const converted = fromCelsius(inCelsius, toUnit);
-    
+
     setResult(converted);
     onConvert?.(fromUnit, toUnit, value, converted);
   };
@@ -78,31 +79,31 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
   ];
 
   const getReferencePoints = () => {
-    const unit = temperatureUnits.find(u => u.value === fromUnit);
+    const unit = temperatureUnits.find((u) => u.value === fromUnit);
     switch (fromUnit) {
       case 'celsius':
         return {
           freezing: 0,
           boiling: 100,
-          absolute: -273.15
+          absolute: -273.15,
         };
       case 'fahrenheit':
         return {
           freezing: 32,
           boiling: 212,
-          absolute: -459.67
+          absolute: -459.67,
         };
       case 'kelvin':
         return {
           freezing: 273.15,
           boiling: 373.15,
-          absolute: 0
+          absolute: 0,
         };
       case 'rankine':
         return {
           freezing: 491.67,
           boiling: 671.67,
-          absolute: 0
+          absolute: 0,
         };
       default:
         return { freezing: 0, boiling: 100, absolute: -273.15 };
@@ -144,7 +145,7 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
                 key={unit.value}
                 flex={1}
                 size="$2"
-                variant={fromUnit === unit.value ? "outlined" : "ghost"}
+                variant={fromUnit === unit.value ? 'outlined' : 'ghost'}
                 onPress={() => setFromUnit(unit.value)}
               >
                 {unit.symbol}
@@ -154,12 +155,7 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
         </YStack>
 
         <YStack alignItems="center">
-          <Button
-            size="$3"
-            variant="ghost"
-            onPress={swapUnits}
-            icon={() => <Text>⇅</Text>}
-          >
+          <Button size="$3" variant="ghost" onPress={swapUnits} icon={() => <Text>⇅</Text>}>
             Swap
           </Button>
         </YStack>
@@ -168,15 +164,9 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
           <Text marginBottom="$2" fontWeight="500">
             To
           </Text>
-          <YStack
-            minHeight={50}
-            padding="$3"
-            backgroundColor="$gray1"
-            borderRadius="$2"
-            justifyContent="center"
-          >
+          <YStack minHeight={50} padding="$3" backgroundColor="$gray1" borderRadius="$2" justifyContent="center">
             <Text fontSize="$4" fontWeight="bold">
-              {result !== null ? result.toFixed(4) : '0'} {temperatureUnits.find(u => u.value === toUnit)?.symbol}
+              {result !== null ? result.toFixed(4) : '0'} {temperatureUnits.find((u) => u.value === toUnit)?.symbol}
             </Text>
           </YStack>
           <XStack gap="$2" marginTop="$2">
@@ -185,7 +175,7 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
                 key={unit.value}
                 flex={1}
                 size="$2"
-                variant={toUnit === unit.value ? "outlined" : "ghost"}
+                variant={toUnit === unit.value ? 'outlined' : 'ghost'}
                 onPress={() => setToUnit(unit.value)}
               >
                 {unit.symbol}
@@ -199,14 +189,9 @@ export const TemperatureConverter: React.FC<TemperatureConverterProps> = ({ onCo
         Reset
       </Button>
 
-      <YStack
-        padding="$3"
-        backgroundColor="$gray1"
-        borderRadius="$3"
-        gap="$2"
-      >
+      <YStack padding="$3" backgroundColor="$gray1" borderRadius="$3" gap="$2">
         <Paragraph size="$2" fontWeight="500" textAlign="center">
-          Reference Points ({temperatureUnits.find(u => u.value === fromUnit)?.symbol})
+          Reference Points ({temperatureUnits.find((u) => u.value === fromUnit)?.symbol})
         </Paragraph>
         <XStack justifyContent="space-between">
           <Paragraph size="$1">Water Freezing:</Paragraph>

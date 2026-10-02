@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { View, Text, Button, YStack, XStack, Square, Paragraph } from 'tamagui';
+import React, { useCallback, useState } from 'react';
+import { Button, Paragraph, Square, Text, View, XStack, YStack } from 'tamagui';
 
 export type Player = 'X' | 'O' | null;
 export type Board = Player[];
@@ -20,69 +20,71 @@ export const TicTacToe: React.FC<TicTacToeProps> = ({
   aiEnabled = false,
 }) => {
   const initializeBoard = (): Board => Array(boardSize * boardSize).fill(null);
-  
+
   const [board, setBoard] = useState<Board>(initializeBoard());
   const [currentPlayer, setCurrentPlayer] = useState<Player>('X');
   const [winner, setWinner] = useState<Player>(null);
   const [winningLine, setWinningLine] = useState<number[]>([]);
 
-  const checkWinner = useCallback((squares: Board): { winner: Player; line: number[] } => {
-    const lines = [
-      // Rows
-      ...Array.from({ length: boardSize }, (_, i) => 
-        Array.from({ length: boardSize }, (_, j) => i * boardSize + j)
-      ),
-      // Columns
-      ...Array.from({ length: boardSize }, (_, i) => 
-        Array.from({ length: boardSize }, (_, j) => i + j * boardSize)
-      ),
-      // Diagonals
-      Array.from({ length: boardSize }, (_, i) => i * (boardSize + 1)), // Top-left to bottom-right
-      Array.from({ length: boardSize }, (_, i) => (i + 1) * (boardSize - 1)), // Top-right to bottom-left
-    ];
+  const checkWinner = useCallback(
+    (squares: Board): { winner: Player; line: number[] } => {
+      const lines = [
+        // Rows
+        ...Array.from({ length: boardSize }, (_, i) => Array.from({ length: boardSize }, (_, j) => i * boardSize + j)),
+        // Columns
+        ...Array.from({ length: boardSize }, (_, i) => Array.from({ length: boardSize }, (_, j) => i + j * boardSize)),
+        // Diagonals
+        Array.from({ length: boardSize }, (_, i) => i * (boardSize + 1)), // Top-left to bottom-right
+        Array.from({ length: boardSize }, (_, i) => (i + 1) * (boardSize - 1)), // Top-right to bottom-left
+      ];
 
-    for (const line of lines) {
-      const isWinning = line.every(index => squares[index] && squares[index] === squares[line[0]]);
-      if (isWinning) {
-        return { winner: squares[line[0]], line };
+      for (const line of lines) {
+        const isWinning = line.every((index) => squares[index] && squares[index] === squares[line[0]]);
+        if (isWinning) {
+          return { winner: squares[line[0]], line };
+        }
       }
-    }
 
-    return { winner: null, line: [] };
-  }, [boardSize]);
+      return { winner: null, line: [] };
+    },
+    [boardSize],
+  );
 
-  const handleCellClick = useCallback((index: number) => {
-    if (board[index] || winner || (aiEnabled && currentPlayer !== playerSymbol)) {
-      return;
-    }
+  const handleCellClick = useCallback(
+    (index: number) => {
+      if (board[index] || winner || (aiEnabled && currentPlayer !== playerSymbol)) {
+        return;
+      }
 
-    const newBoard = [...board];
-    newBoard[index] = currentPlayer;
-    setBoard(newBoard);
-    onMove?.(currentPlayer, index);
+      const newBoard = [...board];
+      newBoard[index] = currentPlayer;
+      setBoard(newBoard);
+      onMove?.(currentPlayer, index);
 
-    const { winner: gameWinner, line } = checkWinner(newBoard);
-    if (gameWinner) {
-      setWinner(gameWinner);
-      setWinningLine(line);
-      onGameEnd?.(gameWinner, newBoard);
-      return;
-    }
+      const { winner: gameWinner, line } = checkWinner(newBoard);
+      if (gameWinner) {
+        setWinner(gameWinner);
+        setWinningLine(line);
+        onGameEnd?.(gameWinner, newBoard);
+        return;
+      }
 
-    const isDraw = newBoard.every(cell => cell !== null);
-    if (isDraw) {
-      setWinner(null); // Draw
-      onGameEnd?.(null, newBoard);
-      return;
-    }
+      const isDraw = newBoard.every((cell) => cell !== null);
+      if (isDraw) {
+        setWinner(null); // Draw
+        onGameEnd?.(null, newBoard);
+        return;
+      }
 
-    setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
-  }, [board, currentPlayer, winner, aiEnabled, playerSymbol, onMove, onGameEnd, checkWinner]);
+      setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
+    },
+    [board, currentPlayer, winner, aiEnabled, playerSymbol, onMove, onGameEnd, checkWinner],
+  );
 
   const makeAIMove = useCallback(() => {
     const availableMoves = board
-      .map((cell, index) => cell === null ? index : null)
-      .filter(index => index !== null) as number[];
+      .map((cell, index) => (cell === null ? index : null))
+      .filter((index) => index !== null) as number[];
 
     if (availableMoves.length === 0) return;
 
@@ -110,7 +112,7 @@ export const TicTacToe: React.FC<TicTacToeProps> = ({
     }
 
     // Take center if available
-    const center = Math.floor(boardSize * boardSize / 2);
+    const center = Math.floor((boardSize * boardSize) / 2);
     if (availableMoves.includes(center)) {
       handleCellClick(center);
       return;
@@ -168,7 +170,8 @@ export const TicTacToe: React.FC<TicTacToeProps> = ({
 
       {!winner && (
         <Text fontSize="$4">
-          Current player: <Text fontWeight="bold" color={currentPlayer === 'X' ? '$blue10' : '$red10'}>
+          Current player:{' '}
+          <Text fontWeight="bold" color={currentPlayer === 'X' ? '$blue10' : '$red10'}>
             {currentPlayer}
           </Text>
         </Text>
@@ -177,7 +180,7 @@ export const TicTacToe: React.FC<TicTacToeProps> = ({
       {winner && (
         <YStack alignItems="center" gap="$2">
           <Text fontSize="$4" fontWeight="bold" color={winner ? '$green10' : '$orange10'}>
-            {winner ? `Player ${winner} wins!` : 'It\'s a draw!'}
+            {winner ? `Player ${winner} wins!` : "It's a draw!"}
           </Text>
         </YStack>
       )}

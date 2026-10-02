@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, Button, YStack, XStack, Square, Paragraph } from 'tamagui';
+import type React from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Button, Paragraph, Square, Text, View, XStack, YStack } from 'tamagui';
 
 export interface Card {
   id: number;
@@ -59,64 +60,78 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({
     return () => clearInterval(interval);
   }, [gameStarted, gameCompleted, startTime]);
 
-  const handleCardClick = useCallback((id: number) => {
-    if (isChecking || gameCompleted) return;
-    
-    const card = cards.find(c => c.id === id);
-    if (!card || card.isFlipped || card.isMatched) return;
+  const handleCardClick = useCallback(
+    (id: number) => {
+      if (isChecking || gameCompleted) return;
 
-    if (!gameStarted) {
-      setGameStarted(true);
-      setStartTime(Date.now());
-    }
+      const card = cards.find((c) => c.id === id);
+      if (!card || card.isFlipped || card.isMatched) return;
 
-    const newCards = cards.map(c => 
-      c.id === id ? { ...c, isFlipped: true } : c
-    );
-    setCards(newCards);
-
-    const newFlippedCards = [...flippedCards, id];
-    setFlippedCards(newFlippedCards);
-
-    if (newFlippedCards.length === 2) {
-      setIsChecking(true);
-      setMoves(moves + 1);
-
-      const [firstId, secondId] = newFlippedCards;
-      const firstCard = newCards.find(c => c.id === firstId);
-      const secondCard = newCards.find(c => c.id === secondId);
-
-      if (firstCard?.value === secondCard?.value) {
-        // Match found
-        setTimeout(() => {
-          setCards(prev => prev.map(c => 
-            (c.id === firstId || c.id === secondId) ? { ...c, isMatched: true } : c
-          ));
-          setFlippedCards([]);
-          setIsChecking(false);
-          setMatches(matches + 1);
-          
-          const matchedCards = [firstCard, secondCard].filter(Boolean) as Card[];
-          onMatch?.(matchedCards);
-
-          // Check if game is complete
-          if (matches + 1 === cardCount / 2) {
-            setGameCompleted(true);
-            onGameComplete?.(moves + 1, elapsedTime);
-          }
-        }, 500);
-      } else {
-        // No match
-        setTimeout(() => {
-          setCards(prev => prev.map(c => 
-            (c.id === firstId || c.id === secondId) ? { ...c, isFlipped: false } : c
-          ));
-          setFlippedCards([]);
-          setIsChecking(false);
-        }, 1000);
+      if (!gameStarted) {
+        setGameStarted(true);
+        setStartTime(Date.now());
       }
-    }
-  }, [cards, flippedCards, moves, matches, isChecking, gameCompleted, gameStarted, startTime, elapsedTime, cardCount, onMatch, onGameComplete]);
+
+      const newCards = cards.map((c) => (c.id === id ? { ...c, isFlipped: true } : c));
+      setCards(newCards);
+
+      const newFlippedCards = [...flippedCards, id];
+      setFlippedCards(newFlippedCards);
+
+      if (newFlippedCards.length === 2) {
+        setIsChecking(true);
+        setMoves(moves + 1);
+
+        const [firstId, secondId] = newFlippedCards;
+        const firstCard = newCards.find((c) => c.id === firstId);
+        const secondCard = newCards.find((c) => c.id === secondId);
+
+        if (firstCard?.value === secondCard?.value) {
+          // Match found
+          setTimeout(() => {
+            setCards((prev) =>
+              prev.map((c) => (c.id === firstId || c.id === secondId ? { ...c, isMatched: true } : c)),
+            );
+            setFlippedCards([]);
+            setIsChecking(false);
+            setMatches(matches + 1);
+
+            const matchedCards = [firstCard, secondCard].filter(Boolean) as Card[];
+            onMatch?.(matchedCards);
+
+            // Check if game is complete
+            if (matches + 1 === cardCount / 2) {
+              setGameCompleted(true);
+              onGameComplete?.(moves + 1, elapsedTime);
+            }
+          }, 500);
+        } else {
+          // No match
+          setTimeout(() => {
+            setCards((prev) =>
+              prev.map((c) => (c.id === firstId || c.id === secondId ? { ...c, isFlipped: false } : c)),
+            );
+            setFlippedCards([]);
+            setIsChecking(false);
+          }, 1000);
+        }
+      }
+    },
+    [
+      cards,
+      flippedCards,
+      moves,
+      matches,
+      isChecking,
+      gameCompleted,
+      gameStarted,
+      startTime,
+      elapsedTime,
+      cardCount,
+      onMatch,
+      onGameComplete,
+    ],
+  );
 
   const resetGame = useCallback(() => {
     setCards(initializeCards());
@@ -189,16 +204,28 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({
 
       <XStack gap="$6">
         <YStack alignItems="center">
-          <Text fontSize="$3" color="$gray10">Moves</Text>
-          <Text fontSize="$4" fontWeight="bold">{moves}</Text>
+          <Text fontSize="$3" color="$gray10">
+            Moves
+          </Text>
+          <Text fontSize="$4" fontWeight="bold">
+            {moves}
+          </Text>
         </YStack>
         <YStack alignItems="center">
-          <Text fontSize="$3" color="$gray10">Matches</Text>
-          <Text fontSize="$4" fontWeight="bold">{matches}/{cardCount / 2}</Text>
+          <Text fontSize="$3" color="$gray10">
+            Matches
+          </Text>
+          <Text fontSize="$4" fontWeight="bold">
+            {matches}/{cardCount / 2}
+          </Text>
         </YStack>
         <YStack alignItems="center">
-          <Text fontSize="$3" color="$gray10">Time</Text>
-          <Text fontSize="$4" fontWeight="bold">{formatTime(elapsedTime)}</Text>
+          <Text fontSize="$3" color="$gray10">
+            Time
+          </Text>
+          <Text fontSize="$4" fontWeight="bold">
+            {formatTime(elapsedTime)}
+          </Text>
         </YStack>
       </XStack>
 
@@ -224,7 +251,7 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({
             {Array.from({ length: gridSize }, (_, colIndex) => {
               const index = rowIndex * gridSize + colIndex;
               if (index >= cardCount) return <Square key={colIndex} size={60} />;
-              
+
               const card = cards[index];
               return (
                 <Button
